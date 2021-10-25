@@ -1,0 +1,38 @@
+#terminal {
+  position: relative;
+
+  height: 250px;
+  width: 450px;
+
+  overflow: auto;
+  display: flex;
+  /* justify-content: flex-end; */
+  flex-flow: column nowrap;
+  flex-direction: column;
+
+  background: purple;
+}
+
+#terminal > :first-child {
+  margin-top: auto !important;
+  /* use !important to prevent breakage from child margin settings */
+}
+
+#terminal .input-container {
+  width: auto;
+  padding: 5px;
+}
+
+.input-container .cmd {
+  width: 100%;
+  width: -moz-available;          /* For Mozzila */
+  width: -webkit-fill-available;  /* For Chrome */
+  width: stretch;                 /* Unprefixed */
+}
+
+#terminal .command-log {
+  width: auto;
+  font-weight: bold;
+  color: white;
+  padding: 5px;
+}
