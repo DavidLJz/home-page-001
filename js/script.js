@@ -1,4 +1,4 @@
-import { docReady } from "./modules/doc-ready";
+import { docReady } from "./modules/doc-ready.js";
 
 docReady(function () {
   const cmd = document.querySelectorAll('.cmd');
