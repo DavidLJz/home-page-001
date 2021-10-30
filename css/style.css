@@ -30,7 +30,7 @@
   width: stretch;                 /* Unprefixed */
 }
 
-#terminal .command-log {
+#terminal .command-line {
   width: auto;
   font-weight: bold;
   color: white;
