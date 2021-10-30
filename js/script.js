@@ -28,7 +28,24 @@ docReady(function () {
         line.textContent = 'Made by DavidLjz';
         break;
 
+      case 'return': 
+        line.textContent = 'You can\'t do that!';
+        break;
+
       default: {
+        if ( value.includes('go') ) {
+          try {
+            goCommand(value);
+          }
+  
+          catch (e) {
+            console.error(e);
+            line.textContent = 'Error: ' + e.message;
+          }
+
+          break;
+        }
+
         line.textContent = 'Unknown command';
         break;
       }
@@ -36,4 +53,24 @@ docReady(function () {
 
     terminal_output.appendChild(line);
   };
+
+  const goCommand = (line) => {
+    const destination = line.split(' ')[1];
+
+    switch (destination) {
+      case 'home': {
+        location.assign('/');
+        break;
+      }
+
+      case 'back': {
+        history.back();
+        break;
+      }
+    
+      default: {
+        throw new Error('Unknown destination');
+      }
+    }
+  } 
 });
