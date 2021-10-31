@@ -58,6 +58,17 @@ docReady(function () {
         line.textContent = 'You can\'t do that!';
         break;
 
+      case 'history':
+        let history_log = '';
+        const command_history = history.getHistory();
+
+        for ( const i in command_history ) {
+          history_log += i + '\t' + command_history[i] + '\n';
+        }
+
+        line.textContent = history_log;
+        break;
+
       default: {
         if ( value.includes('go') ) {
           try {
