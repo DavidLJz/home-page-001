@@ -30,15 +30,15 @@
   width: stretch;                 /* Unprefixed */
 }
 
-#terminal .command-line {
+#terminal .line {
   width: auto;
   font-weight: bold;
-  color: white;
   padding: 5px;
   white-space: pre-wrap;
+  color: white;
 }
 
-#terminal .command-line a {
-  color: white;
+#terminal .command a {
+  color: rgb(162, 255, 170);
   font-weight: bold;
 }

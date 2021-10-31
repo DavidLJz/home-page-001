@@ -4,6 +4,28 @@ docReady(function () {
   const terminal = document.getElementById('terminal');
   const terminal_output = terminal.querySelector('.command-lines-container');
 
+  terminal.querySelector('.cmd').addEventListener('keydown', function (e) {
+    console.log(e.keyCode);
+
+    if (e.keyCode === 38) {
+      let commands = [];
+
+      terminal_output.querySelectorAll('.command').forEach(el => {
+        commands.push(el.innerText);
+      });
+
+      const lastCommand = commands[commands.length - 1];
+
+      console.log(lastCommand);
+
+      this.value = lastCommand;
+
+      // place cursor at end of input
+      const that = this;      
+      setTimeout(function(){ that.selectionStart = that.selectionEnd = 10000; }, 0);
+    }
+  });
+
   terminal.querySelector('.input-container').onsubmit = function (e) {
     e.preventDefault();
     const input = this.querySelector('input');
@@ -17,13 +39,15 @@ docReady(function () {
     }
 
     let command_input = document.createElement('div');
-    command_input.classList.add('command-line');
+    command_input.classList= 'line command';
     command_input.textContent = value;
 
     terminal_output.append(command_input);
 
     let line = document.createElement('div');
-    line.classList.add('command-line');
+    line.classList.add('line');
+
+    let error = false;
 
     switch (value) {
       case 'help':
@@ -35,6 +59,7 @@ docReady(function () {
         break;
 
       case 'return': 
+        error = true;
         line.textContent = 'You can\'t do that!';
         break;
 
@@ -46,22 +71,30 @@ docReady(function () {
   
           catch (e) {
             console.error(e);
+            error = true;
             line.textContent = 'Error: ' + e.message;
           }
 
           break;
         }
 
+        error = true;
         line.textContent = 'Unknown command';
         break;
       }
     }
 
+    if (error) {
+      line.classList.add('error');
+    } else {
+      line.classList.add('command');
+    }
+
     terminal_output.appendChild(line);
   };
 
-  const goCommand = (line) => {
-    line = line.split(' ');
+  const goCommand = (command) => {
+    command = command.split(' ');
 
     let usage = 'Usage: go [destination] [args]\n\n' + 
       '\tExamples:\n' + 
@@ -69,8 +102,8 @@ docReady(function () {
       '\t- go back\n' + 
       '\t- go url google.com';
 
-    const destination = line[1];
-    let args = line.slice(2);
+    const destination = command[1];
+    let args = command.slice(2);
 
     switch (destination) {
       case 'home': {
@@ -124,7 +157,7 @@ docReady(function () {
         }
 
         const line = document.createElement('p');
-        line.classList = 'command-line';
+        line.classList = 'command';
         line.innerHTML = `Redirecting to ${url} in <span>${params.timeout / 1000}</span>s. If not `;
         line.innerHTML += '<a href="' + url + '">click here</a>.';
 
