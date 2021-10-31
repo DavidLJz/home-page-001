@@ -1,8 +1,10 @@
 import { docReady } from "./modules/doc-ready.js";
 import { CommandHistory } from "./modules/command-history.js";
+import { User } from "./modules/terminal-user.js";
 
 docReady(function () {
   const history = new CommandHistory();
+  const user = new User();
 
   const terminal = document.getElementById('terminal');
   const terminal_output = terminal.querySelector('.command-lines-container');
@@ -35,7 +37,7 @@ docReady(function () {
 
     let command_input = document.createElement('div');
     command_input.classList= 'line command';
-    command_input.textContent = value;
+    command_input.textContent = user.getNameWithPrefix() + value;
 
     terminal_output.append(command_input);
 
