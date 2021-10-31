@@ -35,4 +35,10 @@
   font-weight: bold;
   color: white;
   padding: 5px;
+  white-space: pre-wrap;
+}
+
+#terminal .command-line a {
+  color: white;
+  font-weight: bold;
 }
