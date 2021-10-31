@@ -1,6 +1,9 @@
 import { docReady } from "./modules/doc-ready.js";
+import { CommandHistory } from "./modules/command-history.js";
 
 docReady(function () {
+  const history = new CommandHistory();
+
   const terminal = document.getElementById('terminal');
   const terminal_output = terminal.querySelector('.command-lines-container');
 
@@ -8,13 +11,7 @@ docReady(function () {
     console.log(e.keyCode);
 
     if (e.keyCode === 38) {
-      let commands = [];
-
-      terminal_output.querySelectorAll('.command').forEach(el => {
-        commands.push(el.innerText);
-      });
-
-      const lastCommand = commands[commands.length - 1];
+      const lastCommand = history.getLastCommand();
 
       console.log(lastCommand);
 
@@ -30,6 +27,8 @@ docReady(function () {
     e.preventDefault();
     const input = this.querySelector('input');
     const value = input.value;
+
+    history.add(value).resetLastAccessedIndex();
 
     input.value = '';
 
