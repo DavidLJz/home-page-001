@@ -8,12 +8,8 @@ docReady(function () {
   const terminal_output = terminal.querySelector('.command-lines-container');
 
   terminal.querySelector('.cmd').addEventListener('keydown', function (e) {
-    console.log(e.keyCode);
-
     if (e.keyCode === 38) {
       const lastCommand = history.getLastCommand();
-
-      console.log(lastCommand);
 
       this.value = lastCommand;
 
