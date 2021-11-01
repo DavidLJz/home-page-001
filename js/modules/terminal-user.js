@@ -8,7 +8,7 @@ const User = class {
   }
 
   getNameWithPrefix() {
-    return `${this.name}@${location.hostname} $`;
+    return `${this.name}@${location.hostname} $ `;
   }
 };
 

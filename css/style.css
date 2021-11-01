@@ -38,7 +38,11 @@
   color: white;
 }
 
-#terminal .command a {
+#terminal .pager {
   color: rgb(162, 255, 170);
+}
+
+#terminal .command a {
+  color: rgb(130, 174, 255);
   font-weight: bold;
 }

@@ -36,8 +36,8 @@ docReady(function () {
     }
 
     let command_input = document.createElement('div');
-    command_input.classList= 'line command';
-    command_input.textContent = user.getNameWithPrefix() + value;
+    command_input.classList = 'line command';
+    command_input.innerHTML = `<span class="pager">${user.getNameWithPrefix()}</span>` + value;
 
     terminal_output.append(command_input);
 
