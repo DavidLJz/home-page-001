@@ -136,7 +136,8 @@ docReady(function () {
 
         const params = {
           'ssl' : true,
-          'timeout' : 1000
+          'timeout' : 1000,
+          'new_tab' : false
         };
 
         for (const arg of args) {
@@ -149,6 +150,12 @@ docReady(function () {
             case '--timeout':
             case '-t': {
               params.timeout = parseInt(args[args.indexOf(arg) + 1]);
+              break;
+            }
+
+            case '-nw':
+            case '--new-window': {
+              params.new_tab = true;
               break;
             }
 
@@ -168,7 +175,14 @@ docReady(function () {
 
         const line = document.createElement('p');
         line.classList = 'line command';
-        line.innerHTML = `Redirecting to ${url} in <span>${params.timeout / 1000}</span>s. If not `;
+
+        if ( params.new_tab ) {
+          line.innerHTML = `Opening ${url} in a new window. Wait `
+        } else {
+          line.innerHTML = `Redirecting to ${url} in `;
+        }
+
+        line.innerHTML += `<span>${params.timeout / 1000}</span> seconds. If not `;        
         line.innerHTML += '<a href="' + url + '">click here</a>.';
 
         terminal_output.append(line);
@@ -179,7 +193,13 @@ docReady(function () {
 
         setTimeout(() => { 
           clearInterval(timer);
-          location.assign(url); 
+
+          if ( params.new_tab ) {
+            window.open(url, '_blank');
+          } else {
+            location.assign(url); 
+          }
+
         }, params.timeout);
         
         console.log({url, params, url, args});
