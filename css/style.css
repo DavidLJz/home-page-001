@@ -12,6 +12,7 @@
 
   background: purple;
   font-family: monospace;
+  font-size: 1.15em;
 }
 
 #terminal > :first-child {
@@ -36,6 +37,7 @@
 
   background: none;
   font-weight: bold;
+  font-family: monospace;
   color: white;
   border: none;
 }
@@ -53,6 +55,7 @@
 }
 
 #terminal .pager {
+  font-weight: bold;
   color: rgb(162, 255, 170);
 }
 
