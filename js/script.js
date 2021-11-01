@@ -48,7 +48,9 @@ docReady(function () {
 
     let error = false;
 
-    switch (value) {
+    const command = value.split(' ').filter(x => x || false);
+
+    switch (command[0]) {
       case 'help':
         line.textContent = 'Available commands: clear, help, about';
         break;
@@ -73,21 +75,21 @@ docReady(function () {
         line.textContent = history_log;
         break;
 
-      default: {
-        if ( value.includes('go') ) {
-          try {
-            goCommand(value);
-          }
-  
-          catch (e) {
-            console.error(e);
-            error = true;
-            line.textContent = 'Error: ' + e.message;
-          }
-
-          break;
+      case 'go': {
+        try {
+          goCommand(command);
         }
 
+        catch (e) {
+          console.error(e);
+          error = true;
+          line.textContent = 'Error: ' + e.message;
+        }
+
+        break;
+      }
+
+      default: {
         error = true;
         line.textContent = 'Unknown command';
         break;
@@ -104,8 +106,6 @@ docReady(function () {
   };
 
   const goCommand = (command) => {
-    command = command.split(' ');
-
     let usage = 'Usage: go [destination] [args]\n\n' + 
       '\tExamples:\n' + 
       '\t- go home\n' + 
