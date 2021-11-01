@@ -167,17 +167,20 @@ docReady(function () {
         }
 
         const line = document.createElement('p');
-        line.classList = 'command';
+        line.classList = 'line command';
         line.innerHTML = `Redirecting to ${url} in <span>${params.timeout / 1000}</span>s. If not `;
         line.innerHTML += '<a href="' + url + '">click here</a>.';
 
         terminal_output.append(line);
 
-        setInterval(() => {
+        const timer = setInterval(() => {
           line.querySelector('span').textContent = parseInt(line.querySelector('span').textContent) - 1;
         }, 1000);
 
-        setTimeout(() => { location.assign(url); }, params.timeout);
+        setTimeout(() => { 
+          clearInterval(timer);
+          location.assign(url); 
+        }, params.timeout);
         
         console.log({url, params, url, args});
         break;
