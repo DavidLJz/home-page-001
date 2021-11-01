@@ -9,6 +9,8 @@ docReady(function () {
   const terminal = document.getElementById('terminal');
   const terminal_output = terminal.querySelector('.command-lines-container');
 
+  terminal.querySelector('.pager').textContent = user.getNameWithPrefix();
+
   terminal.querySelector('.cmd').addEventListener('keydown', function (e) {
     if (e.keyCode === 38) {
       const lastCommand = history.getLastCommand();

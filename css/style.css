@@ -21,6 +21,10 @@
 #terminal .input-container {
   width: auto;
   padding: 5px;
+  
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
 }
 
 .input-container .cmd {
@@ -28,6 +32,15 @@
   width: -moz-available;          /* For Mozzila */
   width: -webkit-fill-available;  /* For Chrome */
   width: stretch;                 /* Unprefixed */
+
+  background: none;
+  font-weight: bold;
+  color: white;
+  border: none;
+}
+
+.input-container .cmd:focus {
+  outline: none;
 }
 
 #terminal .line {
