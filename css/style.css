@@ -11,6 +11,7 @@
   flex-direction: column;
 
   background: purple;
+  font-family: monospace;
 }
 
 #terminal > :first-child {
