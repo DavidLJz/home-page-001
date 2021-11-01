@@ -1,10 +1,12 @@
 import { docReady } from "./modules/doc-ready.js";
 import { CommandHistory } from "./modules/command-history.js";
 import { User } from "./modules/terminal-user.js";
+import { Background } from "./modules/background.js";
 
 docReady(function () {
   const history = new CommandHistory();
   const user = new User();
+  const backgrounds = new Background(document.getElementById('bg-input'));
 
   const terminal = document.getElementById('terminal');
   const terminal_output = terminal.querySelector('.command-lines-container');
@@ -52,7 +54,7 @@ docReady(function () {
 
     switch (command[0]) {
       case 'help':
-        line.textContent = 'Available commands: clear, help, about';
+        line.textContent = 'Available commands: clear, help, about, go, history, bg';
         break;
 
       case 'about':
@@ -86,6 +88,20 @@ docReady(function () {
           line.textContent = 'Error: ' + e.message;
         }
 
+        break;
+      }
+
+      case 'bg': {
+        try {
+          backgroundControl(command);
+        }
+
+        catch (e) {
+          console.error(e);
+          error = true;
+          line.textContent = 'Error: ' + e.message;
+        }
+        
         break;
       }
 
@@ -211,4 +227,54 @@ docReady(function () {
       }
     }
   } 
+
+  const backgroundControl = (command) => {
+    let usage = 'Usage: bg [command]\n\n' + 
+      '\tExamples:\n' + 
+      '\t- bg add\n' + 
+      '\t- bg set 3\n' + 
+      '\t- bg next\n' + 
+      '\t- bg prev\n' + 
+      '\t- bg random\n';
+
+
+    let args = command.slice(2);
+    command = command[1];
+
+    switch (command) {
+      case 'add': {
+        backgrounds.add()
+        break;
+      }
+
+      case 'set': {
+        if ( typeof args[0] === 'undefined' || isNaN(args[0]) ) {
+          throw new Error('Wrong sintax. ' + usage);
+        }
+
+        const idx = parseInt(args[0]);
+
+        const base64 = backgrounds.get(idx);
+
+        document.body.style.background = `url(${base64})`;
+        break;
+      }
+
+      case 'prev': {
+        break;
+      }
+
+      case 'next': {
+        break;
+      }
+
+      case 'random': {
+        break;
+      }
+
+      default: {
+        throw new Error('Option not valid\n\n' + usage);
+      }
+    }
+  }
 });
