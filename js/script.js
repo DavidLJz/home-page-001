@@ -246,7 +246,7 @@ docReady(function () {
       '\t- bg next\n' + 
       '\t- bg prev\n' + 
       '\t- bg list\n' + 
-      '\t- bg random\n';
+      '\t- bg random';
 
     let args = command.slice(2);
     command = command[1];
@@ -335,6 +335,7 @@ docReady(function () {
     let available_commands = 'Available commands:\n' +
       '\t- help\n' +
       '\t- about\n' +
+      '\t- bg\n' +
       '\t- clear\n' + 
       '\t- go\n' +
       '\t- history\n';
@@ -374,6 +375,20 @@ docReady(function () {
           '\t- go url google.com';
         
           break;
+      }
+
+      case 'bg': {
+        line.textContent = 'Control background image.' + 
+          '\nUsage: bg [command]\n\n' + 
+          '\tExamples:\n' + 
+          '\t- bg add\n' + 
+          '\t- bg set 3\n' + 
+          '\t- bg next\n' + 
+          '\t- bg prev\n' + 
+          '\t- bg list\n' + 
+          '\t- bg random';
+
+        break;
       }
 
       case 'history': {
