@@ -4,9 +4,9 @@ const Background = class {
 
     this.valid_types = ['image/png', 'image/jpeg'];
 
-    this.type_error = 'Error: Allowed file types: ' + this.valid_types.join(', ');
-    this.type_error = 'Error: File is too large. Max size allowed: 3 MB';
-    this.idx_not_found = 'Error: File not saved';
+    this.type_error = 'Allowed file types: ' + this.valid_types.join(', ');
+    this.type_error = 'File is too large. Max size allowed: 3 MB';
+    this.idx_not_found = 'File not saved';
 
     this.input_el.addEventListener('change', (e) => {
       this.handleUserFiles(e.currentTarget.files);
@@ -22,7 +22,7 @@ const Background = class {
       images = JSON.parse(images);
     }
 
-    return images;
+    return images || [];
   }
 
   handleUserFiles(filelist) {
@@ -30,7 +30,7 @@ const Background = class {
 
     console.log(filelist);
 
-    const images = [];
+    const images = this.getImages();
     const reader = new FileReader();
 
     for (const i in filelist) {
@@ -65,7 +65,9 @@ const Background = class {
   }
 
   save(images) {
-    images = JSON.stringify([ ...this.getImages(), ...images ]);
+    let storedImages = this.getImages();
+
+    images = JSON.stringify([ ...storedImages, ...images ]);
 
     localStorage.setItem('background-images', images);
     
@@ -75,7 +77,7 @@ const Background = class {
   get(idx) {
     const images = this.getImages();
 
-    if ( !images.length || !images[idx] ) {
+    if ( !images || !images.length || !images[idx] ) {
       throw new Error(this.idx_not_found);
     }
 
