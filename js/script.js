@@ -245,8 +245,8 @@ docReady(function () {
       '\t- bg set 3\n' + 
       '\t- bg next\n' + 
       '\t- bg prev\n' + 
+      '\t- bg list\n' + 
       '\t- bg random\n';
-
 
     let args = command.slice(2);
     command = command[1];
@@ -268,14 +268,57 @@ docReady(function () {
       }
 
       case 'prev': {
+        const current_idx = backgrounds.getCurrentBgIdx();
+
+        if ( current_idx === null || isNaN(current_idx) ) {
+          throw new Error('No background set. ' + usage);
+        }
+
+        let idx = current_idx - 1;
+
+        backgrounds.set( idx >= 0 ? idx : backgrounds.getBgCount() + idx );
         break;
       }
 
       case 'next': {
+        const current_idx = backgrounds.getCurrentBgIdx();
+
+        if ( current_idx === null || isNaN(current_idx) ) {
+          throw new Error('No background set. ' + usage);
+        }
+
+        let idx = current_idx + 1;
+
+        backgrounds.set( idx < backgrounds.getBgCount() ? idx : idx - backgrounds.getBgCount() );
         break;
       }
 
       case 'random': {
+        const count_bg = backgrounds.getBgCount();
+
+        if ( !count_bg ) {
+          throw new Error('No background set. ' + usage);
+        }
+
+        const rand = Math.floor(Math.random() * count_bg);
+        
+        backgrounds.set(rand);
+        break;
+      }
+
+      case 'list': {
+        const line = document.createElement('div');
+        line.classList = 'line command';
+
+        line.textContent = 'Backgrounds:\n';
+        
+        const bg_list = backgrounds.getBgList();
+
+        for ( const i in bg_list ) {
+          line.textContent += `\t${i}: ${bg_list[i]}\n`;
+        }
+
+        terminal_output.appendChild(line);
         break;
       }
 

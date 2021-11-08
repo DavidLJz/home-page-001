@@ -12,8 +12,6 @@ const Background = class {
       this.handleUserFiles(e.currentTarget.files);
     });
 
-    this.images = this.getImages();
-
     this.current_bg_idx = this.getCurrentBgIdx();
 
     if ( this.current_bg_idx !== null ) {
@@ -31,8 +29,16 @@ const Background = class {
     return images || [];
   }
 
+  getBgCount() {
+    return this.getImages().length;
+  }
+
   getCurrentBgIdx() {
-    return localStorage.getItem('current-background-idx');
+    if ( !this.current_bg_idx ) {
+      this.current_bg_idx = localStorage.getItem('current-background-idx');
+    }
+
+    return this.current_bg_idx;
   }
 
   setCurrentBgIdx(idx) {
@@ -119,8 +125,16 @@ const Background = class {
     document.body.style.background = `url(${base64})`;
   }
 
-  setRandom() {
+  getBgList() {
+    const images = this.getImages();
 
+    const list = [];
+
+    for (const i in images) {
+      list.push(images[i].name);
+    }
+
+    return list;
   }
 };
 
