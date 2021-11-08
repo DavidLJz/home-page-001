@@ -3,14 +3,17 @@
 - [x] Allow changing background
   - [ ] Using gui
   - [x] Using command line
+- [ ] Make terminal window draggable
+- [ ] Make terminal window resizable
 - [ ] Implement a search engine
+  - [ ] duckduckgo
+  - [ ] google
+  - [ ] yandex
 - [ ] Add a bookmark manager
   - [ ] Add a bookmark import / export
   - [ ] Merge bookmarks
 - [ ] Consult mail from command line
 - [ ] Consult social media from command line
-- [ ] Make terminal window draggable
-- [ ] Make terminal window resizable
 - [ ] Implement an in-tab / single-page social media browsing experience using iframes
 - [ ] Add sticky notes feature
 - [ ] Add themes
