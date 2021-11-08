@@ -18,7 +18,7 @@
   <link rel="icon" href="/favicon.svg" type="image/svg+xml">
   <link rel="apple-touch-icon" href="/apple-touch-icon.png"> -->
 
-  <link rel="stylesheet" href="./css/style.css?v=0.0.7">
+  <link rel="stylesheet" href="./css/style.css?v=0.0.10">
 
 </head>
 
@@ -26,14 +26,38 @@
   <input id="bg-input" type="file" name="bg" style="display: none;" />
 
   <div id="terminal">
-    <div class="command-lines-container"></div>
+    <div class="terminal-header">
+      <div class="terminal-header-left">
+        <div class="terminal-header-left-logo">
+          <img src="./img/logo.png" alt="logo" />
+        </div>
 
-    <div class="input-container">
-      <span class="pager"></span>
-      <form>
-        <input type="text" class="cmd" placeholder="Enter command">
-      </form>
-    </div>
+        <div class="terminal-header-left-title"></div> 
+      </div>
+
+      <div class="terminal-header-right">
+        <div class="terminal-header-right-user">
+          <div class="terminal-header-right-user-name">
+            <span class="terminal-header-right-user-name-text"></span>
+          </div>
+
+          <div class="terminal-header-right-user-avatar">
+            <img src="./img/avatar.png" alt="avatar" />
+          </div>
+        </div>
+      </div> 
+    </div>  <!-- end of terminal-header -->
+
+    <div class="terminal-body">
+      <div class="command-lines-container"></div>
+
+      <div class="input-container">
+        <span class="pager"></span>
+        <form>
+          <input type="text" class="cmd" placeholder="Enter command">
+        </form>
+      </div>
+    </div> <!-- end of terminal-body -->
   </div>
 
   <!-- your content here... -->

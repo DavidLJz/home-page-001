@@ -15,7 +15,23 @@
   font-size: 1.15em;
 }
 
-#terminal > :first-child {
+#terminal .terminal-header {
+  position: fixed;
+  height: 50px;
+  width: inherit;
+  
+  display: flex;
+  flex-direction: column;
+
+  background: #333;
+  color: #fff;
+  
+  line-height: 50px;
+  text-align: center;
+  font-size: 1.5em;
+}
+
+#terminal .terminal-body {
   margin-top: auto !important;
   /* use !important to prevent breakage from child margin settings */
 }
