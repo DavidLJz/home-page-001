@@ -131,6 +131,9 @@ docReady(function () {
     }
 
     terminal_output.appendChild(line);
+
+    // scroll to bottom of terminal
+    terminal.scrollTop = terminal.scrollHeight;
   };
 
   const goCommand = (command) => {
