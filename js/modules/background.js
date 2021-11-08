@@ -45,7 +45,7 @@ const Background = class {
 
     console.log(filelist);
 
-    const images = this.getImages();
+    const images = [];
     const reader = new FileReader();
 
     for (const i in filelist) {
