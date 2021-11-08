@@ -259,7 +259,7 @@ docReady(function () {
 
       case 'set': {
         if ( typeof args[0] === 'undefined' || isNaN(args[0]) ) {
-          throw new Error('Wrong sintax. ' + usage);
+          throw new Error('Wrong syntax. ' + usage);
         }
 
         const idx = parseInt(args[0]);
