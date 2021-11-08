@@ -2,6 +2,8 @@ import { docReady } from "./modules/doc-ready.js";
 import { CommandHistory } from "./modules/command-history.js";
 import { User } from "./modules/terminal-user.js";
 
+const apustaja = './apustaja';
+
 docReady(function () {
   const history = new CommandHistory();
   const user = new User();
@@ -15,9 +17,7 @@ docReady(function () {
   // press up key to get previous command
   terminal.querySelector('.cmd').addEventListener('keydown', function (e) {
     if (e.keyCode === 38) {
-      const lastCommand = history.getLastCommand();
-
-      this.value = lastCommand;
+      this.value = history.getLastCommand();
 
       // place cursor at end of input
       const that = this;      
@@ -53,9 +53,19 @@ docReady(function () {
     const command = value.split(' ').filter(x => x || false);
 
     switch (command[0]) {
-      case 'help':
-        line.textContent = 'Available commands: clear, help, about';
+      case 'help': {
+        try {
+          helpCommand(command[1]);
+        }
+
+        catch (e) {
+          console.error(e);
+          error = true;
+          line.textContent = 'Error: ' + e.message;
+        }
+
         break;
+      }
 
       case 'about':
         line.textContent = 'Made by DavidLjz';
@@ -213,4 +223,82 @@ docReady(function () {
       }
     }
   } 
+
+  const helpCommand = (command='') => {
+    let usage = 'Usage: help [command]\n\n' + 
+      '\tExamples:\n' +
+      '\t- help go\n' +
+      '\t- help history\n';
+
+    let available_commands = 'Available commands:\n' +
+      '\t- help\n' +
+      '\t- about\n' +
+      '\t- clear\n' + 
+      '\t- go\n' +
+      '\t- history\n';
+
+    const line = document.createElement('div');
+    line.classList = 'line command';
+      
+    if ( !command ) {
+      line.textContent = available_commands;
+      terminal_output.appendChild(line);
+      return;
+    }
+
+    if ( command === 'help' ) {
+      (async () => {
+        const path = location.pathname.split('/').filter(x => x || false);
+        path.push('apustaja');
+
+        const response = await fetch( location.origin +'/'+ path.join('/') );
+        const text = await response.text();
+
+        console.log(text);
+      })();
+
+      line.textContent = available_commands;
+      terminal_output.appendChild(line);
+      return;
+    }
+
+    switch (command) {
+      case 'go': {
+        line.textContent = 'Go to internal page or external url.' + 
+          '\nUsage: go [destination] [args]\n\n' + 
+          '\tExamples:\n' + 
+          '\t- go home\n' + 
+          '\t- go back\n' + 
+          '\t- go url google.com';
+        
+          break;
+      }
+
+      case 'history': {
+        line.textContent = 'Show command history' + 
+          'Usage: history [args]\n\n' + 
+          '\tExamples:\n' +
+          '\t- history 10';
+
+        break;
+      }
+
+      case 'clear': {
+        line.textContent = 'Clear the terminal screen';
+        break;
+      }
+
+      case 'about': {
+        line.textContent = 'About this terminal';
+        break;
+      }
+
+      default: {
+        throw new Error('Unknown command\n\n' + usage);
+      }
+    }
+      
+    terminal_output.appendChild(line);
+    return;
+  };
 });
