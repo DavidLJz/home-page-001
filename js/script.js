@@ -276,7 +276,7 @@ docReady(function () {
 
       case 'history': {
         line.textContent = 'Show command history' + 
-          'Usage: history [args]\n\n' + 
+          '\nUsage: history [args]\n\n' + 
           '\tExamples:\n' +
           '\t- history 10';
 
