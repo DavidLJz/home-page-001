@@ -263,10 +263,7 @@ docReady(function () {
         }
 
         const idx = parseInt(args[0]);
-
-        const base64 = backgrounds.get(idx);
-
-        document.body.style.background = `url(${base64})`;
+        backgrounds.set(idx);
         break;
       }
 

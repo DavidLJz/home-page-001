@@ -13,6 +13,12 @@ const Background = class {
     });
 
     this.images = this.getImages();
+
+    this.current_bg_idx = this.getCurrentBgIdx();
+
+    if ( this.current_bg_idx !== null ) {
+      this.set(this.current_bg_idx);
+    }
   }
 
   getImages() {
@@ -23,6 +29,15 @@ const Background = class {
     }
 
     return images || [];
+  }
+
+  getCurrentBgIdx() {
+    return localStorage.getItem('current-background-idx');
+  }
+
+  setCurrentBgIdx(idx) {
+    localStorage.setItem('current-background-idx', idx);
+    return this;
   }
 
   handleUserFiles(filelist) {
@@ -82,6 +97,16 @@ const Background = class {
     }
 
     return images[idx];
+  }
+
+  set(idx) {
+    const base64 = this.get(idx);
+
+    if ( this.current_bg_idx !== idx ) {
+      this.setCurrentBgIdx(idx);
+    }
+
+    document.body.style.background = `url(${base64})`;
   }
 
   setRandom() {
