@@ -14,3 +14,5 @@
 - [ ] Implement an in-tab / single-page social media browsing experience using iframes
 - [ ] Add sticky notes feature
 - [ ] Add themes
+  - [ ] Add terminal color schemes
+  - [ ] Allow user CSS styles
