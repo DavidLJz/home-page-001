@@ -9,8 +9,10 @@ docReady(function () {
   const terminal = document.getElementById('terminal');
   const terminal_output = terminal.querySelector('.command-lines-container');
 
+  // print name of user
   terminal.querySelector('.pager').textContent = user.getNameWithPrefix();
 
+  // press up key to get previous command
   terminal.querySelector('.cmd').addEventListener('keydown', function (e) {
     if (e.keyCode === 38) {
       const lastCommand = history.getLastCommand();
