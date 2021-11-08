@@ -1,8 +1,8 @@
 # To-Do
 - [ ] Finish terminal window
-- [ ] Allow changing background
+- [x] Allow changing background
   - [ ] Using gui
-  - [ ] Using command line
+  - [x] Using command line
 - [ ] Implement a search engine
 - [ ] Add a bookmark manager
   - [ ] Add a bookmark import / export

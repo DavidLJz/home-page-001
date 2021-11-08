@@ -60,13 +60,20 @@ const Background = class {
         console.error(this.size_error);
         return;
       }
+
+      const name = filelist[i].name;
       
       reader.onloadend = () => {
-        images.push(reader.result);
+        images.push({ name, data: reader.result });
 
         if ( i == (filelist.length - 1) ) {
           this.save(images);
         }
+      };
+
+      reader.onerror = (e) => {
+        console.error(e);
+        console.error('Error saving file: ' + name);
       };
 
       reader.readAsDataURL(filelist[i]);
@@ -100,11 +107,14 @@ const Background = class {
   }
 
   set(idx) {
-    const base64 = this.get(idx);
+    const img = this.get(idx);
+    const base64 = img.data;
 
     if ( this.current_bg_idx !== idx ) {
       this.setCurrentBgIdx(idx);
     }
+
+    console.log(`Set background to: ${img.name} (${idx})`);
 
     document.body.style.background = `url(${base64})`;
   }
