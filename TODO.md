@@ -8,6 +8,8 @@
   - [x] Make terminal window draggable
     - [x] Save last window position
   - [ ] Make terminal window maximizable and minimizable
+    - [x] maximize terminal window
+    - [ ] minimize terminal window
   - [ ] Make terminal window resizable
     - [ ] Save last window size
 - [ ] Make terminal window resizable

@@ -443,7 +443,7 @@ docReady(function () {
       return;
     }
 
-    if ( e.target.classList.contains('terminal-header-button') ) {
+    if ( terminal.classList.contains('maximized') ) {
       return;
     }
 
@@ -491,7 +491,7 @@ docReady(function () {
     } else if ( button.classList.contains('min') ) {
       // pending
     } else if ( button.classList.contains('max') ) {
-      // pending
+      terminal.classList.toggle('maximized');
     }
   });
 });

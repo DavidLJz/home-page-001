@@ -27,6 +27,13 @@ body { padding: 10px; }
   font-size: 1.15em;
 }
 
+#terminal.maximized {
+  left: 0px!important;
+  top: 0px!important;
+  height: 100%;
+  width: 100%;
+}
+
 #terminal .terminal-header {
   position: fixed;
   width: inherit;
