@@ -422,4 +422,48 @@ docReady(function () {
       
     terminal_output.appendChild(line);
   };
+
+  // make draggable
+  const terminal_header = terminal.querySelector('.terminal-header');
+
+  terminal_header.addEventListener('mousedown', function (e) {
+    if ( e.target !== terminal_header ) {
+      return;
+    }
+
+    const x = e.clientX - terminal.offsetLeft;
+    const y = e.clientY - terminal.offsetTop;
+
+    terminal.addEventListener('mousemove', moveTerminal);
+    terminal.addEventListener('mouseup', stopMoveTerminal);
+
+    function moveTerminal(e) {
+      terminal.style.left = e.clientX - x + 'px';
+      terminal.style.top = e.clientY - y + 'px';
+    }
+
+    function stopMoveTerminal() {
+      terminal.removeEventListener('mousemove', moveTerminal);
+      terminal.removeEventListener('mouseup', stopMoveTerminal);
+    }
+  });
+
+  // Terminal header buttons
+  terminal_header.addEventListener('click', function (e) {
+    if ( !e.target.classList.contains('terminal-header-button') ) {
+      return;
+    }
+
+    const button = e.target;
+
+    console.log(button);
+
+    if ( button.classList.contains('close') ) {
+      // pending
+    } else if ( button.classList.contains('min') ) {
+      // pending
+    } else if ( button.classList.contains('max') ) {
+      // pending
+    }
+  });
 });
