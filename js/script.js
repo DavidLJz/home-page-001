@@ -456,6 +456,7 @@ docReady(function () {
 
     function moveTerminal(e) {
       terminal.style.userSelect = 'none';
+      document.body.style.cursor = 'move';
 
       terminal.style.left = e.clientX - x + 'px';
       terminal.style.top = e.clientY - y + 'px';
@@ -466,6 +467,7 @@ docReady(function () {
       terminal.removeEventListener('mouseup', stopMoveTerminal);
 
       terminal.style.userSelect = 'auto';
+      document.body.style.cursor = 'default';
 
       if ( typeof Storage !== 'undefined' ) {
         const position = terminal.style.left + ',' + terminal.style.top; // x,y
