@@ -13,6 +13,18 @@ docReady(function () {
   const terminal = document.getElementById('terminal');
   const terminal_output = terminal.querySelector('.command-lines-container');
 
+  // restore terminal state
+  if ( typeof Storage !== 'undefined' ) {
+    let position = localStorage.getItem('terminal-position');
+
+    if ( position ) {
+      position = position.split(',');
+
+      terminal.style.left = position[0];
+      terminal.style.top = position[1]; 
+    }
+  }
+
   // print name of user
   terminal.querySelector('.pager').textContent = user.getNameWithPrefix();
 
@@ -453,6 +465,11 @@ docReady(function () {
       terminal.removeEventListener('mouseup', stopMoveTerminal);
 
       terminal.style.userSelect = 'auto';
+
+      if ( typeof Storage !== 'undefined' ) {
+        const position = terminal.style.left + ',' + terminal.style.top; // x,y
+        localStorage.setItem('terminal-position', position);
+      }
     }
   });
 
