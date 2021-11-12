@@ -313,12 +313,16 @@ docReady(function () {
         const line = document.createElement('div');
         line.classList = 'line command';
 
-        line.textContent = 'Backgrounds:\n';
+        line.textContent = 'Backgrounds:';
         
         const bg_list = backgrounds.getBgList();
 
-        for ( const i in bg_list ) {
-          line.textContent += `\t${i}: ${bg_list[i]}\n`;
+        if ( !bg_list.length ) {
+          line.textContent += '\tNo backgrounds set.';
+        } else {
+          for ( const i in bg_list ) {
+            line.textContent += `\n\t${i}: ${bg_list[i]}\n`;
+          }
         }
 
         terminal_output.appendChild(line);
