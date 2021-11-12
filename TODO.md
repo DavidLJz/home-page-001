@@ -3,7 +3,11 @@
 - [x] Allow changing background
   - [ ] Using gui
   - [x] Using command line
-- [ ] Make terminal window draggable
+  - [x] Allow cycling through backgrounds
+- [ ] Make terminal window draggable and resizable
+  - [x] Make terminal window draggable
+    - [ ] Save last window position
+  - [ ] Save last window size
 - [ ] Make terminal window resizable
 - [ ] Implement a search engine
   - [ ] duckduckgo
