@@ -23,6 +23,12 @@ docReady(function () {
       terminal.style.left = position[0];
       terminal.style.top = position[1]; 
     }
+
+    let state = localStorage.getItem('terminal-state');
+
+    if ( state && ['maximized','minimized','closed'].includes(state) ) {
+      terminal.classList.add(state);
+    }
   }
 
   // print name of user
@@ -484,7 +490,21 @@ docReady(function () {
 
     const button = e.target;
 
-    console.log(button);
+    const switchState = (state) => {
+      if ( typeof Storage === 'undefined' ) {
+        return;
+      }
+
+      const savedState = localStorage.getItem('terminal-state');
+
+      if ( savedState === state ) {
+        localStorage.removeItem('terminal-state');
+      } else {
+        localStorage.setItem('terminal-state', state);
+      }
+    };
+
+    let state;
 
     if ( button.classList.contains('close') ) {
       // pending
@@ -492,6 +512,7 @@ docReady(function () {
       // pending
     } else if ( button.classList.contains('max') ) {
       terminal.classList.toggle('maximized');
+      switchState('maximized');
     }
   });
 });
