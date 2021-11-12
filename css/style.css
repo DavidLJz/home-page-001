@@ -114,3 +114,21 @@ body { padding: 10px; }
   color: rgb(130, 174, 255);
   font-weight: bold;
 }
+
+#launcher {
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  
+  text-align: center;
+}
+
+.launcher-icon {
+  width: 100px;
+  height: 100px;
+  margin: 10px;
+
+  background-size: contain!important;
+
+  cursor: pointer;
+}
