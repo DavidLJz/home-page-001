@@ -1,15 +1,29 @@
 import { docReady } from "./modules/doc-ready.js";
 import { CommandHistory } from "./modules/command-history.js";
 import { User } from "./modules/terminal-user.js";
+import { Background } from "./modules/background.js";
 
 const apustaja = './apustaja';
 
 docReady(function () {
   const history = new CommandHistory();
   const user = new User();
+  const backgrounds = new Background(document.getElementById('bg-input'));
 
   const terminal = document.getElementById('terminal');
   const terminal_output = terminal.querySelector('.command-lines-container');
+
+  // restore terminal state
+  if ( typeof Storage !== 'undefined' ) {
+    let position = localStorage.getItem('terminal-position');
+
+    if ( position ) {
+      position = position.split(',');
+
+      terminal.style.left = position[0];
+      terminal.style.top = position[1]; 
+    }
+  }
 
   // print name of user
   terminal.querySelector('.pager').textContent = user.getNameWithPrefix();
@@ -101,6 +115,20 @@ docReady(function () {
         break;
       }
 
+      case 'bg': {
+        try {
+          backgroundControl(command);
+        }
+
+        catch (e) {
+          console.error(e);
+          error = true;
+          line.textContent = 'Error: ' + e.message;
+        }
+        
+        break;
+      }
+
       default: {
         error = true;
         line.textContent = 'Unknown command';
@@ -115,6 +143,9 @@ docReady(function () {
     }
 
     terminal_output.appendChild(line);
+
+    // scroll to bottom of terminal
+    terminal.scrollTop = terminal.scrollHeight;
   };
 
   const goCommand = (command) => {
@@ -218,11 +249,101 @@ docReady(function () {
         break;
       }
     
-      default: {
-        throw new Error('Unknown destination\n\n' + usage);
-      }
+      default: throw new Error('Unknown destination\n\n' + usage);
     }
   } 
+
+  const backgroundControl = (command) => {
+    let usage = 'Usage: bg [command]\n\n' + 
+      '\tExamples:\n' + 
+      '\t- bg add\n' + 
+      '\t- bg set 3\n' + 
+      '\t- bg next\n' + 
+      '\t- bg prev\n' + 
+      '\t- bg list\n' + 
+      '\t- bg random';
+
+    let args = command.slice(2);
+    command = command[1];
+
+    switch (command) {
+      case 'add': {
+        backgrounds.add()
+        break;
+      }
+
+      case 'set': {
+        if ( typeof args[0] === 'undefined' || isNaN(args[0]) ) {
+          throw new Error('Wrong syntax. ' + usage);
+        }
+
+        const idx = parseInt(args[0]);
+        backgrounds.set(idx);
+        break;
+      }
+
+      case 'prev': {
+        const current_idx = backgrounds.getCurrentBgIdx();
+
+        if ( current_idx === null || isNaN(current_idx) ) {
+          throw new Error('No background set. ' + usage);
+        }
+
+        let idx = current_idx - 1;
+
+        backgrounds.set( idx >= 0 ? idx : backgrounds.getBgCount() + idx );
+        break;
+      }
+
+      case 'next': {
+        const current_idx = backgrounds.getCurrentBgIdx();
+
+        if ( current_idx === null || isNaN(current_idx) ) {
+          throw new Error('No background set. ' + usage);
+        }
+
+        let idx = current_idx + 1;
+
+        backgrounds.set( idx < backgrounds.getBgCount() ? idx : idx - backgrounds.getBgCount() );
+        break;
+      }
+
+      case 'random': {
+        const count_bg = backgrounds.getBgCount();
+
+        if ( !count_bg ) {
+          throw new Error('No background set. ' + usage);
+        }
+
+        const rand = Math.floor(Math.random() * count_bg);
+        
+        backgrounds.set(rand);
+        break;
+      }
+
+      case 'list': {
+        const line = document.createElement('div');
+        line.classList = 'line command';
+
+        line.textContent = 'Backgrounds:';
+        
+        const bg_list = backgrounds.getBgList();
+
+        if ( !bg_list.length ) {
+          line.textContent += '\tNo backgrounds set.';
+        } else {
+          for ( const i in bg_list ) {
+            line.textContent += `\n\t${i}: ${bg_list[i]}\n`;
+          }
+        }
+
+        terminal_output.appendChild(line);
+        break;
+      }
+
+      default: throw new Error('Option not valid\n\n' + usage);
+    }
+  };
 
   const helpCommand = (command='') => {
     let usage = 'Usage: help [command]\n\n' + 
@@ -233,6 +354,7 @@ docReady(function () {
     let available_commands = 'Available commands:\n' +
       '\t- help\n' +
       '\t- about\n' +
+      '\t- bg\n' +
       '\t- clear\n' + 
       '\t- go\n' +
       '\t- history\n';
@@ -274,6 +396,20 @@ docReady(function () {
           break;
       }
 
+      case 'bg': {
+        line.textContent = 'Control background image.' + 
+          '\nUsage: bg [command]\n\n' + 
+          '\tExamples:\n' + 
+          '\t- bg add\n' + 
+          '\t- bg set 3\n' + 
+          '\t- bg next\n' + 
+          '\t- bg prev\n' + 
+          '\t- bg list\n' + 
+          '\t- bg random';
+
+        break;
+      }
+
       case 'history': {
         line.textContent = 'Show command history' + 
           '\nUsage: history [args]\n\n' + 
@@ -293,12 +429,67 @@ docReady(function () {
         break;
       }
 
-      default: {
-        throw new Error('Unknown command\n\n' + usage);
-      }
+      default: throw new Error('Unknown command\n\n' + usage);
     }
       
     terminal_output.appendChild(line);
-    return;
   };
+
+  // make draggable
+  const terminal_header = terminal.querySelector('.terminal-header');
+
+  terminal_header.addEventListener('mousedown', function (e) {
+    if ( e.target !== terminal_header ) {
+      return;
+    }
+
+    if ( e.target.classList.contains('terminal-header-button') ) {
+      return;
+    }
+
+    const x = e.clientX - terminal.offsetLeft;
+    const y = e.clientY - terminal.offsetTop;
+
+    document.body.addEventListener('mousemove', moveTerminal);
+    document.body.addEventListener('click', stopMoveTerminal);
+    terminal.addEventListener('mouseup', stopMoveTerminal);
+
+    function moveTerminal(e) {
+      terminal.style.userSelect = 'none';
+
+      terminal.style.left = e.clientX - x + 'px';
+      terminal.style.top = e.clientY - y + 'px';
+    }
+
+    function stopMoveTerminal() {
+      document.body.removeEventListener('mousemove', moveTerminal);
+      terminal.removeEventListener('mouseup', stopMoveTerminal);
+
+      terminal.style.userSelect = 'auto';
+
+      if ( typeof Storage !== 'undefined' ) {
+        const position = terminal.style.left + ',' + terminal.style.top; // x,y
+        localStorage.setItem('terminal-position', position);
+      }
+    }
+  });
+
+  // Terminal header buttons
+  terminal_header.addEventListener('click', function (e) {
+    if ( !e.target.classList.contains('terminal-header-button') ) {
+      return;
+    }
+
+    const button = e.target;
+
+    console.log(button);
+
+    if ( button.classList.contains('close') ) {
+      // pending
+    } else if ( button.classList.contains('min') ) {
+      // pending
+    } else if ( button.classList.contains('max') ) {
+      // pending
+    }
+  });
 });

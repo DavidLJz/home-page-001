@@ -18,23 +18,41 @@
   <link rel="icon" href="/favicon.svg" type="image/svg+xml">
   <link rel="apple-touch-icon" href="/apple-touch-icon.png"> -->
 
-  <link rel="stylesheet" href="./css/style.css?v=0.0.7">
+  <link rel="stylesheet" href="./css/style.css?v=0.1.2b">
 
 </head>
 
 <body>
-  <div id="terminal">
-    <div class="command-lines-container"></div>
+  <input id="bg-input" type="file" name="bg" style="display: none;" />
 
-    <div class="input-container">
-      <span class="pager"></span>
-      <form>
-        <input type="text" class="cmd" placeholder="Enter command">
-      </form>
-    </div>
+  <div id="terminal">
+    <div class="terminal-header">
+      <div class="terminal-header-left">
+        <div class="terminal-header-left-title">
+          Terminal
+        </div> 
+      </div>
+
+      <div class="terminal-header-right">
+        <button type="button" title="minimize" class="min terminal-header-button">&minus;</button>
+        <button type="button" title="maximize" class="max terminal-header-button">o</button>
+        <button type="button" title="close" class="close terminal-header-button">x</button>
+      </div> 
+    </div>  <!-- end of terminal-header -->
+
+    <div class="terminal-body">
+      <div class="command-lines-container"></div>
+
+      <div class="input-container">
+        <span class="pager"></span>
+        <form>
+          <input type="text" class="cmd" placeholder="Enter command">
+        </form>
+      </div>
+    </div> <!-- end of terminal-body -->
   </div>
 
   <!-- your content here... -->
-  <script type="module" src="./js/script.js"></script>
+  <script type="module" src="./js/script.js?v=0.4.1b"></script>
 </body>
 </html>
