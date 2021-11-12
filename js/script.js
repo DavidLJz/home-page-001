@@ -431,6 +431,10 @@ docReady(function () {
       return;
     }
 
+    if ( e.target.classList.contains('terminal-header-button') ) {
+      return;
+    }
+
     const x = e.clientX - terminal.offsetLeft;
     const y = e.clientY - terminal.offsetTop;
 
@@ -438,6 +442,8 @@ docReady(function () {
     terminal.addEventListener('mouseup', stopMoveTerminal);
 
     function moveTerminal(e) {
+      terminal.style.userSelect = 'none';
+
       terminal.style.left = e.clientX - x + 'px';
       terminal.style.top = e.clientY - y + 'px';
     }
@@ -445,6 +451,8 @@ docReady(function () {
     function stopMoveTerminal() {
       document.body.removeEventListener('mousemove', moveTerminal);
       terminal.removeEventListener('mouseup', stopMoveTerminal);
+
+      terminal.style.userSelect = 'auto';
     }
   });
 
