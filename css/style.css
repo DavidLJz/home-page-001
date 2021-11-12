@@ -17,7 +17,6 @@
 
 #terminal .terminal-header {
   position: fixed;
-  height: 50px;
   width: inherit;
   
   display: flex;
@@ -27,8 +26,25 @@
   background: #333;
   color: #fff;
   
-  line-height: 50px;
   text-align: center;
+  line-height: 30px;
+}
+
+.terminal-header .terminal-header-left {
+  margin-left: 10px;
+}
+
+.terminal-header .terminal-header-right {
+  margin-right: 10px;
+}
+
+.terminal-header-button {
+  background: none;
+  border: none;
+  color: #fff;
+  font-weight: bold;
+  cursor: pointer;
+  font-size: 0.9em;
 }
 
 #terminal .terminal-body {
