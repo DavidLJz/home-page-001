@@ -434,7 +434,7 @@ docReady(function () {
     const x = e.clientX - terminal.offsetLeft;
     const y = e.clientY - terminal.offsetTop;
 
-    terminal.addEventListener('mousemove', moveTerminal);
+    document.body.addEventListener('mousemove', moveTerminal);
     terminal.addEventListener('mouseup', stopMoveTerminal);
 
     function moveTerminal(e) {
@@ -443,7 +443,7 @@ docReady(function () {
     }
 
     function stopMoveTerminal() {
-      terminal.removeEventListener('mousemove', moveTerminal);
+      document.body.removeEventListener('mousemove', moveTerminal);
       terminal.removeEventListener('mouseup', stopMoveTerminal);
     }
   });
