@@ -6,8 +6,10 @@
   - [x] Allow cycling through backgrounds
 - [ ] Make terminal window draggable and resizable
   - [x] Make terminal window draggable
-    - [ ] Save last window position
-  - [ ] Save last window size
+    - [x] Save last window position
+  - [ ] Make terminal window maximizable and minimizable
+  - [ ] Make terminal window resizable
+    - [ ] Save last window size
 - [ ] Make terminal window resizable
 - [ ] Implement a search engine
   - [ ] duckduckgo

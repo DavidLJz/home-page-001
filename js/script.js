@@ -451,6 +451,7 @@ docReady(function () {
     const y = e.clientY - terminal.offsetTop;
 
     document.body.addEventListener('mousemove', moveTerminal);
+    document.body.addEventListener('click', stopMoveTerminal);
     terminal.addEventListener('mouseup', stopMoveTerminal);
 
     function moveTerminal(e) {
