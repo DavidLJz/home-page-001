@@ -24,6 +24,10 @@
 - [ ] Consult social media from command line
 - [ ] Implement an in-tab / single-page social media browsing experience using iframes
 - [ ] Add sticky notes feature
+  - [ ] Add a gui note manager
+  - [ ] Add note import / export
+  - [ ] Manage notes from command line
 - [ ] Add themes
   - [ ] Add terminal color schemes
   - [ ] Allow user CSS styles
+- [ ] Add a dockbar / launcher
