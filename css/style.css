@@ -51,6 +51,8 @@ body {
   
   text-align: center;
   line-height: 30px;
+
+  user-select: none;
 }
 
 .terminal-header .terminal-header-left {

@@ -31,3 +31,4 @@
   - [ ] Add terminal color schemes
   - [ ] Allow user CSS styles
 - [ ] Add a dockbar / launcher
+- [ ] Refactor styles to use SASS

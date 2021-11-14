@@ -445,7 +445,7 @@ docReady(function () {
   const terminal_header = terminal.querySelector('.terminal-header');
 
   terminal_header.addEventListener('mousedown', function (e) {
-    if ( e.target !== terminal_header ) {
+    if ( e.target.classList.contains('terminal-header-button') ) {
       return;
     }
 
