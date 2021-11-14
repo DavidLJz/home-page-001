@@ -8,7 +8,11 @@ html, body {
   height: 100%;
 }
 
-body { padding: 10px; }
+body { 
+  padding: 10px; 
+  background-size: 100% 100%!important;
+  background-position: center!important;
+}
 
 #terminal {
   position: relative;
@@ -35,7 +39,7 @@ body { padding: 10px; }
 }
 
 #terminal .terminal-header {
-  position: fixed;
+  position: sticky;
   width: inherit;
   
   display: flex;
@@ -113,4 +117,22 @@ body { padding: 10px; }
 #terminal .command a {
   color: rgb(130, 174, 255);
   font-weight: bold;
+}
+
+#launcher {
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  
+  text-align: center;
+}
+
+.launcher-icon {
+  width: 100px;
+  height: 100px;
+  margin: 10px;
+
+  background-size: contain!important;
+
+  cursor: pointer;
 }
