@@ -1,0 +1,134 @@
+* {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+}
+
+html {
+	height: 100%;
+}
+
+body {
+	height: 100%;
+	padding: 10px;
+	background-size: 100% 100% !important;
+	background-position: center !important;
+}
+
+#terminal {
+	position: relative;
+	height: 250px;
+	width: 450px;
+	overflow: auto;
+	display: flex;
+	flex-flow: column nowrap;
+	flex-direction: column;
+	background: purple;
+	font-family: monospace;
+	font-size: 1.15em;
+  
+	.terminal-header {
+		position: sticky;
+		width: inherit;
+		display: flex;
+		flex-direction: row;
+		justify-content: space-between;
+		background: #333;
+		color: #fff;
+		text-align: center;
+		line-height: 30px;
+	}
+  
+	.terminal-body {
+		margin-top: auto !important;
+	}
+
+	.input-container {
+		width: auto;
+		padding: 5px;
+		display: flex;
+		flex-wrap: wrap;
+		flex-direction: row;
+	}
+
+	.line {
+		width: auto;
+		font-weight: bold;
+		padding: 5px;
+		white-space: pre-wrap;
+		color: white;
+	}
+
+	.pager {
+		font-weight: bold;
+		color: rgb(162, 255, 170);
+	}
+
+	.command {
+		a {
+			color: rgb(130, 174, 255);
+			font-weight: bold;
+		}
+	}
+
+}
+
+#terminal.maximized {
+	left: 0px !important;
+	top: 0px !important;
+	height: 100%;
+	width: 100%;
+}
+
+.terminal-header {
+	.terminal-header-left {
+		margin-left: 10px;
+	}
+
+	.terminal-header-right {
+		margin-right: 10px;
+	}
+}
+
+.terminal-header-button {
+	background: none;
+	border: none;
+	color: #fff;
+	font-weight: bold;
+	cursor: pointer;
+	font-size: 0.9em;
+}
+
+.input-container {
+	.cmd {
+		width: 100%;
+		width: -moz-available;
+		width: -webkit-fill-available;
+		width: stretch;
+		background: none;
+		font-weight: bold;
+		font-family: monospace;
+		color: white;
+		border: none;
+		&:focus {
+			outline: none;
+		}
+
+	}
+
+}
+
+#launcher {
+	position: absolute;
+	bottom: 0;
+	left: 50%;
+	text-align: center;
+}
+
+.launcher-icon {
+	width: 100px;
+	height: 100px;
+	margin: 10px;
+	background-size: contain !important;
+	cursor: pointer;
+}
