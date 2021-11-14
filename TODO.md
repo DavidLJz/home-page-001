@@ -1,4 +1,4 @@
-# To-Do
+# Features
 - [ ] Finish terminal window
 - [x] Allow changing background
   - [ ] Using gui
@@ -31,4 +31,9 @@
   - [ ] Add terminal color schemes
   - [ ] Allow user CSS styles
 - [ ] Add a dockbar / launcher
+
+# Technical Changes
 - [ ] Refactor styles to use SASS
+
+# Minor Improvements
+- [ ] Click on terminal should focus input
