@@ -132,11 +132,14 @@ body {
 }
 
 .launcher-icon {
-  width: 100px;
-  height: 100px;
+  display: inline-block;
+
+  width: 80px;
+  height: 80px;
   margin: 10px;
 
   background-size: contain!important;
+  background-repeat: no-repeat!important;
 
   cursor: pointer;
 }
