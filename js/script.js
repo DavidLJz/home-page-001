@@ -2,6 +2,7 @@ import { docReady } from "./modules/doc-ready.js";
 import { CommandHistory } from "./modules/command-history.js";
 import { User } from "./modules/terminal-user.js";
 import { Background } from "./modules/background.js";
+import { Dockbar } from "./modules/dockbar.js";
 
 const apustaja = './apustaja';
 
@@ -9,6 +10,21 @@ docReady(function () {
   const history = new CommandHistory();
   const user = new User();
   const backgrounds = new Background(document.getElementById('bg-input'));
+  const dockbar = new Dockbar(document.getElementById('launcher'));
+
+  const apps = [
+    {
+      name : 'notes',
+      icon : './images/notes.webp',
+      action : (event) => {
+        alert('work in progress');
+      }
+    }
+  ];
+
+  for ( const app of apps ) {
+    dockbar.registerApp(app);
+  }
 
   const terminal = document.getElementById('terminal');
   const terminal_output = terminal.querySelector('.command-lines-container');
